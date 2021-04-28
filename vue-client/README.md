@@ -1,4 +1,4 @@
-# vue
+# vue-client
 
 > A Vue.js project
 
