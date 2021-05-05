@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', [LoginController::class, 'login']);
+Route::get('img/{thuMuc}/{hinhAnh}', [ImageController::class, 'get']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', [LoginController::class, 'logout']);
+    Route::post('user', [LoginController::class, 'user']);
+    Route::resource('staff', StaffController::class);
 });
