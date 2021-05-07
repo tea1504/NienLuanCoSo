@@ -167,14 +167,26 @@
           drop-placeholder="Drop file here..."
           @change="change"
         ></b-form-file>
-        <img id="output" src="http://api.laravel.local:81/api/img/chung/default.png" class="mt-2" height="150px" />
+        <img
+          id="output"
+          src="http://api.laravel.local:81/api/img/chung/default.png"
+          class="mt-2"
+          height="150px"
+        />
       </b-form-group>
+      <b-col offset-sm="2" offset-md="1">
+        <b-button @click="submit">Lưu</b-button></b-col
+      >
     </b-card>
+    <spinner v-if="!isLoaded" />
   </div>
 </template>
 
 <script>
+import Staff from "../../apis/Staff";
+import Spinner from "../../components/Spinner.vue";
 export default {
+  components: { Spinner },
   data() {
     return {
       staff: {
@@ -185,8 +197,6 @@ export default {
         identity_card_number: "",
         phone_number: "",
         address: "",
-        username: "",
-        password: "",
         image: "",
       },
       label: {
@@ -205,6 +215,8 @@ export default {
         labelNav: "Điều hướng lịch",
         labelHelp: "Sử dụng các phím con trỏ để duyệt ngày tháng",
       },
+      isLoaded: true,
+      errors: [],
     };
   },
   methods: {
@@ -215,6 +227,26 @@ export default {
     loadFile(e) {
       var output = document.getElementById("output");
       output.src = URL.createObjectURL(e.target.files[0]);
+    },
+    submit() {
+      this.isLoaded = false;
+      var formData = new FormData();
+      formData.append("department_id", this.staff.department_id);
+      formData.append("first_name", this.staff.first_name);
+      formData.append("last_name", this.staff.last_name);
+      formData.append("date_of_birth", this.staff.date_of_birth);
+      formData.append("identity_card_number", this.staff.identity_card_number);
+      formData.append("phone_number", this.staff.phone_number);
+      formData.append("address", this.staff.address);
+      formData.append("image", this.staff.image);
+      Staff.create(formData)
+        .then((res) => {
+          console.log(res);
+          this.isLoaded = true;
+        })
+        .catch((err) => {
+          this.isLoaded = true;
+        });
     },
   },
 };

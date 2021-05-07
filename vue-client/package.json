@@ -10,6 +10,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "@cookieseater/vue-adminlte3": "github:CookiesEater/vue-adminlte3",
     "admin-lte": "^3.1.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",

@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-var $ = require("jquery");
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 import 'admin-lte'
 import 'admin-lte/dist/css/adminlte.css'
 import 'admin-lte/dist/js/adminlte.js'
 
+import JQuery from 'jquery'
+window.$ = JQuery
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
